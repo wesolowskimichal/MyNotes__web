@@ -1,37 +1,40 @@
-import { useLocalData } from '@hooks'
-import { Token, User } from '@types'
+import { FetchUser } from '@helpers'
+import { useToken, useTheme } from '@hooks'
+import { User } from '@types'
 import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useEffect, useState } from 'react'
 
 type AppContextType = {
   user: User | null
   setUser: Dispatch<SetStateAction<User | null>>
-  token: Token | null
-  setToken: Dispatch<SetStateAction<Token | null>>
 }
 
 export const AppContext = createContext<AppContextType>({
   user: null,
-  setUser: () => {},
-  token: null,
-  setToken: () => {}
+  setUser: () => {}
 })
 
 type AppRpoviderProps = {
   children: ReactNode
 }
 
-export const AppRpovider = ({ children }: AppRpoviderProps) => {
+export const AppRrovider = ({ children }: AppRpoviderProps) => {
   const [user, setUser] = useState<User | null>(null)
-  const [token, setToken] = useState<Token | null>(null)
-  const { fetchToken, fetchTheme } = useLocalData()
+  const { fetchToken } = useToken()
+  const { fetchTheme } = useTheme()
 
   useEffect(() => {
+    const fetchUser = async () => {
+      const user = await FetchUser()
+      setUser(user)
+    }
     const token = fetchToken()
-    setToken(token)
+    if (token) {
+      fetchUser()
+    }
     fetchTheme()
-  }, [])
+  }, [fetchTheme, fetchToken])
 
-  return <AppContext.Provider value={{ user, setUser, token, setToken }}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ user, setUser }}>{children}</AppContext.Provider>
 }
 
 const useApp = () => useContext(AppContext)

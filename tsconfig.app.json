@@ -16,7 +16,8 @@
       "@services": ["./services"],
       "@types": ["./types"],
       "@contexts": ["./contexts"],
-      "@hooks": ["./hooks"]
+      "@hooks": ["./hooks"],
+      "@helpers": ["./helpers"]
     },
 
     /* Bundler mode */

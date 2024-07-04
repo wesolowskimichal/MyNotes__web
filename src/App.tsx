@@ -1,10 +1,12 @@
-import { AppRpovider } from '@contexts'
+import { AppRrovider } from '@contexts'
+import Home from 'pages/home'
 
 function App() {
   return (
-    <AppRpovider>
+    <AppRrovider>
       <h1>Hello</h1>
-    </AppRpovider>
+      <Home />
+    </AppRrovider>
   )
 }
 

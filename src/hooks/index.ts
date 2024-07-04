@@ -1,1 +1,2 @@
-export { useLocalData } from './useLocalData'
+export { useToken } from './useToken'
+export { useTheme } from './useTheme'
