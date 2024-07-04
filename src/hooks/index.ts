@@ -1,0 +1,1 @@
+export { useLocalData } from './useLocalData'
