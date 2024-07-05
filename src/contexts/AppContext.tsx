@@ -26,13 +26,14 @@ export const AppRrovider = ({ children }: AppRpoviderProps) => {
   const { fetchTheme } = useTheme()
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await FetchUser()
-      setUser(user)
-    }
+    // const fetchUser = async () => {
+    // const user = await FetchUser()
+    // setUser(user)
+    // }
     const token = fetchToken()
     if (token) {
-      fetchUser()
+      // fetchUser()
+      setToken(token)
     }
     fetchTheme()
   }, [fetchTheme, fetchToken])
@@ -42,7 +43,7 @@ export const AppRrovider = ({ children }: AppRpoviderProps) => {
       const user = await FetchUser()
       setUser(user)
     }
-    const token = fetchToken()
+    // const token = fetchToken()
     if (token) {
       fetchUser()
     }
