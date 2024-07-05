@@ -1,0 +1,39 @@
+button:hover .ql-stroke,
+.ql-picker-label:hover .ql-stroke {
+  fill: none;
+  stroke: var(--prideColor) !important;
+}
+
+.ql-active .ql-stroke {
+  fill: none;
+  stroke: var(--prideColor) !important;
+}
+
+button:hover .ql-fill,
+.ql-picker-label:hover .ql-fill {
+  fill: var(--prideColor) !important;
+  stroke: none;
+}
+
+.ql-active .ql-fill {
+  fill: var(--prideColor) !important;
+  stroke: none;
+}
+
+.ql-toolbar .ql-stroke {
+  fill: none;
+  stroke: var(--fontColor);
+}
+
+.ql-toolbar .ql-fill {
+  fill: var(--fontColor);
+  stroke: none;
+}
+
+.ql-toolbar .ql-picker {
+  color: var(--fontColor);
+}
+
+.ql-picker-options {
+  background-color: var(--backgroundColor) !important;
+}

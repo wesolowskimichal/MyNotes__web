@@ -1,1 +1,1 @@
-export type { ColorTheme, User, Token } from './Types'
+export type { ColorTheme, User, Token, Note, NotePage } from './Types'

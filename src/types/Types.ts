@@ -5,6 +5,21 @@ interface __ID_IMAGE_FIELD {
   image: string
 }
 
+type __PAGE_INFO = {
+  links: {
+    next: string | null
+    previous: string | null
+  }
+  count: number
+  current_page_number: number
+  last_page_number: number
+}
+
+type __PAGE<T> = {
+  page_info: __PAGE_INFO
+  data: T[]
+}
+
 export interface User extends __ID_IMAGE_FIELD {
   username: string
   email: string
@@ -16,3 +31,13 @@ export type Token = {
   refresh: string
   access: string
 }
+
+export type Note = {
+  readonly id: string
+  title: string
+  htmlCode: string
+  members: User[]
+  owners: User[]
+}
+
+export type NotePage = __PAGE<Note>
