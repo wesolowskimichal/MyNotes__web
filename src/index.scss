@@ -1,3 +1,5 @@
+@import './constants/colors';
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,15 +14,15 @@
 }
 
 [data-theme='light'] {
-  --backgroundColor: #fcfcfc;
-  --prideColor: #cd9cfc;
-  --fontColor: #030303;
+  --backgroundColor: #{$backgroundColor__light};
+  --prideColor: #{$prideColor__light};
+  --fontColor: #{$fontColor__light};
 }
 
 [data-theme='dark'] {
-  --backgroundColor: #1f1f1f;
-  --prideColor: #cd9cfc;
-  --fontColor: #e0e0e0;
+  --backgroundColor: #{$backgroundColor__dark};
+  --prideColor: #{$prideColor__dark};
+  --fontColor: #{$fontColor__dark};
 }
 
 * {

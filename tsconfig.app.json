@@ -12,6 +12,7 @@
     /* Absolute Paths */
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@constants": ["./constants"],
       "@services": ["./services"],
       "@types": ["./types"],

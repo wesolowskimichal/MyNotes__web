@@ -5,6 +5,8 @@ import { useState } from 'react'
 import api from 'services/Api'
 
 const Home = () => {
+  console.log('render home')
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const { toggleTheme } = useTheme()
