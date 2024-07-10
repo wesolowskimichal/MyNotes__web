@@ -17,6 +17,14 @@ export const useTheme = () => {
     return theme
   }, [setTheme])
 
+  const getTheme = useCallback((): ColorTheme => {
+    let theme: ColorTheme | null = localStorage.getItem(COLOR_THEME) as ColorTheme | null
+    if (!theme) {
+      theme = 'light'
+    }
+    return theme
+  }, [])
+
   const toggleTheme = useCallback(() => {
     let theme: ColorTheme | null = localStorage.getItem(COLOR_THEME) as ColorTheme | null
     if (!theme) {
@@ -26,5 +34,5 @@ export const useTheme = () => {
     setTheme(theme)
   }, [fetchTheme, setTheme])
 
-  return { fetchTheme, toggleTheme }
+  return { fetchTheme, toggleTheme, getTheme }
 }

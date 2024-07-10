@@ -1,16 +1,10 @@
-import { Note } from '@types'
-import { useEffect, useState } from 'react'
-
 const Home = () => {
   console.log('render home')
 
-  const [notes, setNotes] = useState<Note[]>([])
-
   return (
-    <>
-      <aside></aside>
-      <article></article>
-    </>
+    <div className="w-full bg-background flex">
+      <div className="grow"></div>
+    </div>
   )
 }
 

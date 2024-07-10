@@ -3,12 +3,14 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@constants'
 import { ReactNode, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import Sidebar from '@/components/sidebar'
 
 type ProtectedRouteProps = {
+  sidebar?: boolean
   children: ReactNode
 }
 
-const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
+const ProtectedRoute = ({ sidebar = true, children }: ProtectedRouteProps) => {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null)
 
   useEffect(() => {
@@ -59,7 +61,14 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     return <div>Loading...</div>
   }
 
-  return isAuthorized ? children : <Navigate to="/login" />
+  return isAuthorized ? (
+    <div className="px-1">
+      {sidebar && <Sidebar />}
+      {children}
+    </div>
+  ) : (
+    <Navigate to="/login" />
+  )
 }
 
 export default ProtectedRoute

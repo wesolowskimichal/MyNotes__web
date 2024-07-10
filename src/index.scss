@@ -1,4 +1,7 @@
 @import './constants/colors';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,12 +18,14 @@
 
 [data-theme='light'] {
   --backgroundColor: #{$backgroundColor__light};
+  --backgroundColorPride: #{$backgroundColorPride__light};
   --prideColor: #{$prideColor__light};
   --fontColor: #{$fontColor__light};
 }
 
 [data-theme='dark'] {
   --backgroundColor: #{$backgroundColor__dark};
+  --backgroundColorPride: #{$backgroundColorPride__dark};
   --prideColor: #{$prideColor__dark};
   --fontColor: #{$fontColor__dark};
 }

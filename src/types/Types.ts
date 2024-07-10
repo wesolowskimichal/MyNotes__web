@@ -20,11 +20,20 @@ type __PAGE<T> = {
   data: T[]
 }
 
+export type ContactRequest = {
+  readonly id: string
+  name: string
+  sender: User
+  receiver: User
+  sent_at: Date
+}
+
 export interface User extends __ID_IMAGE_FIELD {
   username: string
   email: string
   first_name: string
   last_name: string
+  contacts: User[]
 }
 
 export type Token = {
@@ -39,5 +48,13 @@ export type Note = {
   members: User[]
   owners: User[]
 }
+
+export interface Group extends __ID_IMAGE_FIELD {
+  name: string
+  members: User[]
+  owners: User[]
+}
+
+export type GroupPage = __PAGE<Group>
 
 export type NotePage = __PAGE<Note>

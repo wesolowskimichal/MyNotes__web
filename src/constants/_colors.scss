@@ -1,7 +1,11 @@
+@use 'sass:color';
+
 $backgroundColor__light: #fcfcfc;
+$backgroundColorPride__light: color.scale($backgroundColor__light, $lightness: -10%);
 $prideColor__light: #cd9cfc;
 $fontColor__light: #030303;
 
 $backgroundColor__dark: #1f1f1f;
+$backgroundColorPride__dark: color.scale($backgroundColor__dark, $lightness: 10%);
 $prideColor__dark: #cd9cfc;
 $fontColor__dark: #e0e0e0;
