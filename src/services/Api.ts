@@ -72,7 +72,7 @@ api.interceptors.response.use(
 
       return new Promise((resolve, reject) => {
         axios
-          .post(`${import.meta.env.VITE_API_URL}/token/refresh`, { token: refreshToken })
+          .post(`${import.meta.env.VITE_API_URL}api/token/refresh/`, { token: refreshToken })
           .then(({ data }) => {
             localStorage.setItem(ACCESS_TOKEN, data.accessToken)
             api.defaults.headers.Authorization = `Bearer ${data.accessToken}`

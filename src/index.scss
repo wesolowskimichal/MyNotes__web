@@ -40,3 +40,26 @@ body {
   background-color: var(--backgroundColor);
   color: var(--fontColor);
 }
+
+*::-webkit-scrollbar {
+  display: block;
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--prideColor);
+  border-radius: 3rem;
+}
+
+*::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 10px;
+}
+
+*::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10px;
+}

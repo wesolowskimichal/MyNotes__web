@@ -4,6 +4,7 @@ import Home from 'pages/home'
 import Login from 'pages/login/Login'
 import ProtectedRoute from 'pages/protectedRoute/ProtectedRoute'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Toaster } from './shadcn-components/ui/toaster'
 
 const LoginWrapper = () => {
   localStorage.removeItem(ACCESS_TOKEN)
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<LoginWrapper />} />
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </AppRrovider>
   )
 }

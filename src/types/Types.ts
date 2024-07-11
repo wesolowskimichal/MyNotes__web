@@ -15,7 +15,7 @@ type __PAGE_INFO = {
   last_page_number: number
 }
 
-type __PAGE<T> = {
+export type __PAGE<T> = {
   page_info: __PAGE_INFO
   data: T[]
 }
@@ -28,12 +28,23 @@ export type ContactRequest = {
   sent_at: Date
 }
 
+export type Contact = {
+  readonly id: string
+  user_from: User
+  user_to: User
+  created: Date
+}
+
+export type MyContact = {
+  readonly id: string
+  user: User
+}
+
 export interface User extends __ID_IMAGE_FIELD {
   username: string
   email: string
   first_name: string
   last_name: string
-  contacts: User[]
 }
 
 export type Token = {
@@ -49,6 +60,11 @@ export type Note = {
   owners: User[]
 }
 
+export type ApiError = {
+  header: string
+  detail: string
+}
+
 export interface Group extends __ID_IMAGE_FIELD {
   name: string
   members: User[]
@@ -56,5 +72,5 @@ export interface Group extends __ID_IMAGE_FIELD {
 }
 
 export type GroupPage = __PAGE<Group>
-
 export type NotePage = __PAGE<Note>
+export type MyContactPage = __PAGE<MyContact>
