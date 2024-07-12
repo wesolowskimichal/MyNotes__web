@@ -29,7 +29,7 @@
       height: 40px;
       border-radius: 1rem;
       padding: 0.4rem 0.6rem;
-      background-color: lighten($color: $backgroundColor__dark, $amount: 5%);
+      background-color: var(--backgroundColorPride);
       color: var(--fontColor);
       border: none;
 

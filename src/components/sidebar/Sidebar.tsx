@@ -6,11 +6,13 @@ import IconConfig from '../iconConfig'
 import { ScrollArea } from '@/shadcn-components/ui/scroll-area'
 import Contact from '@/views/contact'
 import { useToast } from '@/shadcn-components/ui/use-toast'
-import { Skeleton } from '@/shadcn-components/ui/skeleton'
 import { ToastAction } from '@/shadcn-components/ui/toast'
 import useApiPage from '@/hooks/useApiPage'
-import { MyContact } from '@types'
+import { Contact as IContact, MyContact } from '@types'
 import ContactLoader from '../contactLoader'
+import api from '@/services/Api'
+import ContactsDialog from '@/components/contactsDialog/ContactsDialog'
+import useApp from '@/contexts/AppContext'
 
 type SidebarProps = {
   hidden?: boolean
@@ -19,11 +21,21 @@ type SidebarProps = {
 const Sidebar = ({ hidden = false }: SidebarProps) => {
   const [visible, setVisible] = useState(!hidden)
   const [animate, setAnimate] = useState(false)
+  const [contactDetails, setContactDetails] = useState<IContact | null>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
   const loadMoreRef = useRef<HTMLDivElement | null>(null)
 
-  const { pageData, pageError, pageLoading, isFinished, fetchNextPage } = useApiPage<MyContact>('/api/contacts/')
+  const {
+    pageData,
+    pageError,
+    pageLoading,
+    isFinished,
+    fetchNextPage,
+    removeFromDataById,
+    removeFromData: _removeFromData
+  } = useApiPage<MyContact>('/api/contacts/')
   const { toast } = useToast()
+  const { user } = useApp()
 
   useEffect(() => {
     if (pageError) {
@@ -66,6 +78,50 @@ const Sidebar = ({ hidden = false }: SidebarProps) => {
     setTimeout(() => setVisible(false), 300)
   }, [])
 
+  const handleOnContactClick = useCallback(
+    async (contactId: string) => {
+      const contactResponse = await api.get(`/api/contacts/${contactId}/`)
+      if (contactResponse.status !== 200) {
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'Could not fetch contact',
+          action: <ToastAction altText="Try again">Try again</ToastAction>
+        })
+        return
+      }
+      setContactDetails(contactResponse.data)
+    },
+    [setContactDetails]
+  )
+
+  const handleOnDialogChange = useCallback(() => {
+    setContactDetails(null)
+  }, [setContactDetails])
+
+  const handleOnDeleteClick = useCallback(
+    async (contact: IContact) => {
+      const other = user === contact.user_from ? contact.user_from : contact.user_to
+      const contactResponse = await api.delete(`/api/contacts/${contact.id}/`)
+      if (contactResponse.status !== 200) {
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'Could not delete contact',
+          action: <ToastAction altText="Try again">Try again</ToastAction>
+        })
+        return
+      }
+      removeFromDataById(contact.id)
+      toast({
+        variant: 'default',
+        title: 'Contact Removed!',
+        description: `You have deleted ${other.first_name} ${other.last_name} from contacts.`
+      })
+    },
+    [removeFromDataById, user]
+  )
+
   return (
     <>
       {visible ? (
@@ -94,7 +150,7 @@ const Sidebar = ({ hidden = false }: SidebarProps) => {
               <ScrollArea>
                 <div className="flex flex-col gap-y-2">
                   {pageData.map(contact => (
-                    <Contact key={contact.id} contact={contact} />
+                    <Contact key={contact.id} contact={contact} onClick={() => handleOnContactClick(contact.id)} />
                   ))}
                   {pageLoading && <ContactLoader />}
                 </div>
@@ -111,6 +167,11 @@ const Sidebar = ({ hidden = false }: SidebarProps) => {
               </ScrollArea>
             </TabsContent>
           </Tabs>
+          <ContactsDialog
+            contactDetails={contactDetails}
+            onDialogClose={handleOnDialogChange}
+            onDeleteClick={(contact: IContact) => handleOnDeleteClick(contact)}
+          />
         </aside>
       ) : (
         <button
